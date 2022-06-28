@@ -28,6 +28,12 @@ public class ProductoEntity {
 	@Column(name="VALOR_PRODUCTO")
 	private Integer valorProducto;
 	
+	@Column(name="DESCUENTO_PRODUCTO_PORC")
+	private Integer descuentoProductoPorc;
+	
+	@Column(name="URL_IMAGEN")
+	private String urlImagen;
+	
 	@Column(name="ID_CATEGORIA")
 	private Integer idCategoria;
 	

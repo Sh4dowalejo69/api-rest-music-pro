@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.pro.music.rest.api.service.IApiRestMusicProService;
 import cl.pro.music.rest.api.viewmodel.dto.CategoriaDTO;
 import cl.pro.music.rest.api.viewmodel.dto.ProductoDTO;
+import cl.pro.music.rest.api.viewmodel.model.PagoProducto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name="api-music-pro")
@@ -29,6 +30,11 @@ public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 		
 		System.out.println("Id Producto: "+ id);
 		return new ResponseEntity<>(iApiRestMusicProService.obtenerProductoPorId(id), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Void> pagoProductos(PagoProducto pagoProducto) {
+		return new ResponseEntity<>(iApiRestMusicProService.realizaPagoProductos(pagoProducto), HttpStatus.OK);
 	}
 
 }

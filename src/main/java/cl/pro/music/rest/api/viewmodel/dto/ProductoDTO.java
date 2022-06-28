@@ -9,6 +9,7 @@ public class ProductoDTO {
 	private String descripcionProducto;
 	private Integer cantidadProducto;
 	private Integer valorProducto;
+	private String urlImagen;
 	private Integer idCategoria;
 	private Integer idMarca;
 }
