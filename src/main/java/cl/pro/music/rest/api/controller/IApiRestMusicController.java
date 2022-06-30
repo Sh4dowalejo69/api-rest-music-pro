@@ -22,16 +22,16 @@ import io.swagger.annotations.ApiOperation;
 @Validated
 public interface IApiRestMusicController {
 	
-	@ApiOperation(value="listaProductos",nickname="listaProductos",notes="Obtiene el listados de los productos de la tienda music pro",tags={"api-music-pro"})
+	@ApiOperation(value="Obtiene el listados de los productos de la tienda music pro",nickname="listaProductos",notes="Obtiene el listados de los productos de la tienda music pro",tags={"Api Music Pro"})
 	@GetMapping(value="listaProductos", produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<List<ProductoDTO>> listaDeProductos();
 	
-	@ApiOperation(value="findById",nickname="findById",notes="Obtener producto por id",tags={"api-music-pro"})
-	@GetMapping(value="findById/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value="Obtener producto por id",nickname="findById",notes="Obtener producto por id",tags={"Api Music Pro"})
+	@GetMapping(value="productoFindById/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<ProductoDTO> obtenerProductoPorId(@PathVariable Integer id);
 	
 	
-	@ApiOperation(value="pagoProductos", nickname="pagoProductos", notes="Pago de producto/s",tags={"api-music-pro"})
+	@ApiOperation(value="Pago de producto/s de un cliente Music Pro", nickname="pagoProductos", notes="Pago de producto/s",tags={"Api Music Pro"})
 	@PostMapping(value="pagoProductos", produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<VoucherTransaccionDTO> pagoProductos(@Valid @RequestBody  PagoProducto pagoProducto);
 }

@@ -13,7 +13,7 @@ import cl.pro.music.rest.api.viewmodel.dto.VoucherTransaccionDTO;
 import cl.pro.music.rest.api.viewmodel.model.PagoProducto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name="api-music-pro")
+@Tag(name="Api Music Pro")
 @RestController
 public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 
@@ -27,8 +27,6 @@ public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 
 	@Override
 	public ResponseEntity<ProductoDTO> obtenerProductoPorId(Integer id) {
-		
-		System.out.println("Id Producto: "+ id);
 		return new ResponseEntity<>(iApiRestMusicProService.obtenerProductoPorId(id), HttpStatus.OK);
 	}
 

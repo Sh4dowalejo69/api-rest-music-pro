@@ -84,7 +84,7 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 		venta.setIdComprador(comprador.getIdComprador());
 		venta.setIdTipoPago(pagoProducto.getCodPago());
 		if(obtenerDescuento(pagoProducto) > pagoProducto.getMontoPagadoComprador()) {
-			throw new MontoVentaInferior("El monto del comprador es "+pagoProducto.getMontoPagadoComprador()+ " a la venta" + obtenerDescuento(pagoProducto));
+			throw new MontoVentaInferior("El monto del comprador es $"+pagoProducto.getMontoPagadoComprador()+ " a la venta $" + obtenerDescuento(pagoProducto));
 		}
 		venta.setTotalAPagarDesc(obtenerDescuento(pagoProducto));
 		venta.setMoneda(moneda);
@@ -110,7 +110,6 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 	}
 	
 	private TransaccionVentaEntity transaccionVenta(PagoProducto producto, VentaEntity venta) {
-		System.out.println("Objeto Producto: " + producto);
 		FuncionesUtiles funcionUtils = new FuncionesUtiles();
 		TransaccionVentaEntity transaccion = new TransaccionVentaEntity();
 		transaccion.setIdTransaVenta(funcionUtils.getRandomHexString(14));
@@ -121,15 +120,13 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 		transaccion.setEstadoTransaccion("APROBADO");
 		transaccion.setMontoVentaDCompra(venta.getTotalAPagarDesc());
 		transaccion.setMontoCanceladoVentaDCompra(producto.getMontoPagadoComprador());
-		
-		if(venta.getTotalAPagarDesc()==producto.getMontoPagadoComprador()) {
+		if(venta.getTotalAPagarDesc().intValue()==producto.getMontoPagadoComprador().intValue()) {
 			transaccion.setMontoVueltoDineroCompr(0);			
 		}
 		if(producto.getMontoPagadoComprador() > venta.getTotalAPagarDesc()) {
 			transaccion.setMontoVueltoDineroCompr(producto.getMontoPagadoComprador()-venta.getTotalAPagarDesc());			
 		}
 		return iTransaccionVentaRepository.saveAndFlush(transaccion);
-		
 	}
 
 	private List<Integer> actualizarStockProductos(PagoProducto productos) {
@@ -175,8 +172,7 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 			ProductoEntity result = iProductoRepository.findById(producto.getIdProducto()).orElse(null);
 			if (result != null) {
 				Integer descuento = valor.get("descuento");
-				descuento += result.getValorProducto()
-						- (result.getValorProducto() * result.getDescuentoProductoPorc() / 100);
+				descuento += (result.getValorProducto()* producto.getCantidadProducto()) - ((result.getValorProducto()* producto.getCantidadProducto()) * result.getDescuentoProductoPorc() / 100);
 				valor.put("descuento", descuento);
 			}
 		});
