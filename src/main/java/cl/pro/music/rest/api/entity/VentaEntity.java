@@ -28,14 +28,14 @@ public class VentaEntity {
 	@Column(name="ID_VENTA")
 	private Integer idVenta;
 	
+	@Column(name="ID_COMPRADOR")
+	private Integer idComprador;
+	
 	@Column(name="FECHA_VENTA")
 	private Date fechaVenta;
 	
 	@Column(name="ID_TIPO_PAGO")
 	private Integer idTipoPago;
-	
-	@Column(name="TOTAL_A_PAGAR")
-	private Integer totalAPagar;
 	
 	@Column(name="TOTAL_A_PAGAR_DESC")
 	private Integer totalAPagarDesc;

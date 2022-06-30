@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.pro.music.rest.api.service.IApiRestMusicProService;
-import cl.pro.music.rest.api.viewmodel.dto.CategoriaDTO;
 import cl.pro.music.rest.api.viewmodel.dto.ProductoDTO;
+import cl.pro.music.rest.api.viewmodel.dto.VoucherTransaccionDTO;
 import cl.pro.music.rest.api.viewmodel.model.PagoProducto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -33,8 +33,8 @@ public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 	}
 
 	@Override
-	public ResponseEntity<Void> pagoProductos(PagoProducto pagoProducto) {
-		return new ResponseEntity<>(iApiRestMusicProService.realizaPagoProductos(pagoProducto), HttpStatus.OK);
+	public ResponseEntity<VoucherTransaccionDTO> pagoProductos( PagoProducto pagoProducto) {
+		return new ResponseEntity<>(iApiRestMusicProService.realizaPagoProductos(pagoProducto), HttpStatus.CREATED);
 	}
 
 }

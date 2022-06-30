@@ -3,6 +3,7 @@ package cl.pro.music.rest.api.service;
 import java.util.List;
 
 import cl.pro.music.rest.api.viewmodel.dto.ProductoDTO;
+import cl.pro.music.rest.api.viewmodel.dto.VoucherTransaccionDTO;
 import cl.pro.music.rest.api.viewmodel.model.PagoProducto;
 
 public interface IApiRestMusicProService {
@@ -11,5 +12,5 @@ public interface IApiRestMusicProService {
 	
 	ProductoDTO obtenerProductoPorId(Integer id);
 	
-	Void realizaPagoProductos(PagoProducto pagoProducto);
+	VoucherTransaccionDTO realizaPagoProductos(PagoProducto pagoProducto);
 }
