@@ -10,12 +10,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cl.pro.music.rest.api.entity.CategoriaEntity;
 import cl.pro.music.rest.api.entity.CompradorEntity;
 import cl.pro.music.rest.api.entity.DetalleVentaEntity;
 import cl.pro.music.rest.api.entity.MonedaEntity;
 import cl.pro.music.rest.api.entity.ProductoEntity;
 import cl.pro.music.rest.api.entity.TransaccionVentaEntity;
 import cl.pro.music.rest.api.entity.VentaEntity;
+import cl.pro.music.rest.api.repository.ICategoriaRepository;
 import cl.pro.music.rest.api.repository.ICompradorRepository;
 import cl.pro.music.rest.api.repository.IDetalleVentaRepository;
 import cl.pro.music.rest.api.repository.IMonedaRepository;
@@ -24,6 +26,7 @@ import cl.pro.music.rest.api.repository.ITransaccionVentaRepository;
 import cl.pro.music.rest.api.repository.IVentaRepository;
 import cl.pro.music.rest.api.service.IApiRestMusicProService;
 import cl.pro.music.rest.api.utils.FuncionesUtiles;
+import cl.pro.music.rest.api.viewmodel.dto.CategoriaDTO;
 import cl.pro.music.rest.api.viewmodel.dto.ProductoDTO;
 import cl.pro.music.rest.api.viewmodel.dto.VoucherTransaccionDTO;
 import cl.pro.music.rest.api.viewmodel.error.exceptions.MontoVentaInferior;
@@ -50,12 +53,15 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 	
 	@Autowired
 	private ITransaccionVentaRepository iTransaccionVentaRepository;
+	
+	@Autowired
+	private ICategoriaRepository iCategoriaRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
-	public List<ProductoDTO> obtenerListadoCategoria() {
+	public List<ProductoDTO> obtenerListadoProductos() {
 		List<ProductoEntity> listaProducto = iProductoRepository.findAll();
 		return listaProducto.stream().map(producto -> modelMapper.map(producto, ProductoDTO.class))
 				.collect(Collectors.toList());
@@ -71,8 +77,6 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 	public VoucherTransaccionDTO realizaPagoProductos(PagoProducto pagoProducto) {
 
 		actualizarStockProductos(pagoProducto);
-		
-
 		return realizaVenta(pagoProducto);
 	}
 
@@ -178,6 +182,20 @@ public class ApiRestMusicProServiceImpl implements IApiRestMusicProService {
 		});
 
 		return valor.get("descuento");
+	}
+
+	@Override
+	public List<CategoriaDTO> obtenerCategoriaProductos() {
+		List<CategoriaEntity> listaCategoria= iCategoriaRepository.findAll();
+		return listaCategoria.stream().map(categoria -> modelMapper.map(categoria, CategoriaDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<ProductoDTO> obtenerListadoProductosPorCategoria(Integer idCategoria) {
+		List<ProductoEntity> listaProducto = iProductoRepository.findByIdCategoria(idCategoria);
+		return listaProducto.stream().map(producto -> modelMapper.map(producto, ProductoDTO.class))
+				.collect(Collectors.toList());
 	}
 
 }

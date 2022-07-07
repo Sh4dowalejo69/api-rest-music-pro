@@ -19,6 +19,9 @@ public class ProductoEntity {
 	@Column(name="ID_PRODUCTO")
 	private Integer idProducto;
 	
+	@Column(name="TITULO_PRODUCTO")
+	private String tituloProducto;
+	
 	@Column(name="DESCRIPCION_PRODUCT")
 	private String descripcionProducto;
 	
