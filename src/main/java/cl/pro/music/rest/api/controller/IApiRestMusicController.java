@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cl.pro.music.rest.api.viewmodel.dto.CategoriaDTO;
+import cl.pro.music.rest.api.viewmodel.dto.MonedaDTO;
 import cl.pro.music.rest.api.viewmodel.dto.ProductoDTO;
 import cl.pro.music.rest.api.viewmodel.dto.VoucherTransaccionDTO;
 import cl.pro.music.rest.api.viewmodel.model.PagoProducto;
@@ -42,7 +43,12 @@ public interface IApiRestMusicController {
 	ResponseEntity<ProductoDTO> obtenerProductoPorId(@PathVariable Integer id);
 	
 	
-	@ApiOperation(value="Pago de producto/s de un cliente Music Pro", nickname="pagoProductos", notes="Pago de producto/s",tags={"Api Music Pro"})
+	@ApiOperation(value="Pago de producto/s de un cliente Music Pro", nickname="pagoProductos", notes="Pago de producto/s",tags={"Pagos"})
 	@PostMapping(value="pagoProductos", produces = MediaType.APPLICATION_JSON_VALUE)
 	ResponseEntity<VoucherTransaccionDTO> pagoProductos(@Valid @RequestBody  PagoProducto pagoProducto);
+	
+	
+	@ApiOperation(value="Obtener Valor moneda Actual Dolar", nickname="getDolarActual", notes="Obtener Valor moneda Actual Dolar",tags={"Dolar"})
+	@GetMapping(value="getDolarActual", produces = MediaType.APPLICATION_JSON_VALUE)
+	ResponseEntity<MonedaDTO> getMonedaDolar();
 }

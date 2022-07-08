@@ -16,4 +16,5 @@ public class VoucherTransaccionDTO {
 	private Integer montoVueltoDineroCompr;
 	
 	
+	
 }

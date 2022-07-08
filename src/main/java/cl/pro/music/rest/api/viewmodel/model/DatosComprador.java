@@ -1,6 +1,5 @@
 package cl.pro.music.rest.api.viewmodel.model;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;

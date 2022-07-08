@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.pro.music.rest.api.service.IApiRestMusicProService;
+import cl.pro.music.rest.api.service.IGetApiRestMusic;
 import cl.pro.music.rest.api.viewmodel.dto.CategoriaDTO;
+import cl.pro.music.rest.api.viewmodel.dto.MonedaDTO;
 import cl.pro.music.rest.api.viewmodel.dto.ProductoDTO;
 import cl.pro.music.rest.api.viewmodel.dto.VoucherTransaccionDTO;
 import cl.pro.music.rest.api.viewmodel.model.PagoProducto;
@@ -25,6 +27,11 @@ public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 	@Autowired
 	private IApiRestMusicProService iApiRestMusicProService;
 	
+	@Autowired 
+	private IGetApiRestMusic iGetApiRestMusic;
+	
+	
+	
 	@Override
 	public ResponseEntity<List<ProductoDTO>> listaDeProductos() {
 		log.info("Inicia busqueda de productos");
@@ -38,7 +45,10 @@ public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 
 	@Override
 	public ResponseEntity<VoucherTransaccionDTO> pagoProductos( PagoProducto pagoProducto) {
-		return new ResponseEntity<>(iApiRestMusicProService.realizaPagoProductos(pagoProducto), HttpStatus.CREATED);
+		System.out.println(pagoProducto);
+		log.info("Inicio pago con obj : ", pagoProducto);
+		
+		return new ResponseEntity<>(iApiRestMusicProService.realizaPagoProductos(pagoProducto), HttpStatus.OK);
 	}
 
 	@Override
@@ -49,6 +59,11 @@ public class ApiRestMusicProControllerImpl implements IApiRestMusicController{
 	@Override
 	public ResponseEntity<List<ProductoDTO>> listaDeProductosPorCategoria(Integer idCategoria) {
 		return new ResponseEntity<>(iApiRestMusicProService.obtenerListadoProductosPorCategoria(idCategoria),HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<MonedaDTO> getMonedaDolar() {
+		return new ResponseEntity<>(iGetApiRestMusic.getMonedaActual(),HttpStatus.OK);
 	}
 
 }
